@@ -1,5 +1,5 @@
 "use client";
-
+import FontFamily from "@tiptap/extension-font-family";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import TaskItem from "@tiptap/extension-task-item";
@@ -11,7 +11,8 @@ import TableRow from "@tiptap/extension-table-row";
 import Image from "@tiptap/extension-image";
 import ImageResize from "tiptap-extension-resize-image";
 import { useEditorStore } from "@/store/use-editor-store";
-import Underline from '@tiptap/extension-underline'
+import Underline from "@tiptap/extension-underline";
+import TextStyle from "@tiptap/extension-text-style";
 
 export const Editor = () => {
   const { setEditor } = useEditorStore();
@@ -50,6 +51,8 @@ export const Editor = () => {
     },
     extensions: [
       StarterKit,
+      FontFamily,
+      TextStyle,
       TaskList,
       Image,
       ImageResize,
@@ -58,7 +61,7 @@ export const Editor = () => {
       TableCell,
       TableHeader,
       TableRow,
-      Underline
+      Underline,
     ],
     content: `<table>
           <tbody>
