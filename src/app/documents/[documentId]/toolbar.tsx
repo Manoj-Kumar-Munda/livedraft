@@ -46,6 +46,50 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 
+const FontSizeButton = () => {
+  const { editor } = useEditorStore();
+
+  const currentFontSize = editor?.getAttributes("textStyle").fontSize
+    ? editor?.getAttributes("textStyle").fontSize.replace("px", "")
+    : "16";
+  const [fontSize, setFontSize] = useState(currentFontSize);
+
+  const onChange = (size: string) => {
+    editor?.chain().focus().setFontSize(size).run();
+    setFontSize(size.replace("px", ""));
+  };
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <button
+          className={cn(
+            "h-7 min-w-7 shrink-0 flex items-center justify-center rounded-sm hover:bg-neutral-200/80 px-1.5 overflow-hidden text-sm"
+          )}
+        >
+          <span className="text-xs">{fontSize}</span>
+        </button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent className="p-1 flex flex-col gap-y-1">
+        {["12px", "14px", "16px", "18px", "20px", "24px", "32px"].map(
+          (size) => (
+            <button
+              key={size}
+              onClick={() => onChange(size)}
+              className={cn(
+                "flex items-center gap-x-2 px-2 py-1 rounded-sm hover:bg-neutral-200/80",
+                fontSize === size && "bg-neutral-200/80"
+              )}
+            >
+              {size.replace("px", "")}
+            </button>
+          )
+        )}
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+};
+
 const ListButton = () => {
   const { editor } = useEditorStore();
 
@@ -537,7 +581,7 @@ const Toolbar = () => {
       <Separator orientation="vertical" className="h-6 bg-neutral-300" />
       <HeadingLevelButton />
       <Separator orientation="vertical" className="h-6 bg-neutral-300" />
-      {/* TODO: Font size */}
+      <FontSizeButton />
       <Separator orientation="vertical" className="h-6 bg-neutral-300" />
       {sections[1].map((item) => (
         <ToolbarButton key={item?.label} {...item} />
