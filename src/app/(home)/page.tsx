@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Navbar from "./navbar";
+import TemplatesGallery from "./template-gallery";
 const Home = () => {
   return (
     <div className="flex flex-col  min-h-screen ">
@@ -7,8 +8,7 @@ const Home = () => {
         <Navbar />
       </div>
       <div className="mt-16">
-        Click <Link href={"/documents/123"}>here</Link> to go to document id
-        page.
+        <TemplatesGallery />
       </div>
     </div>
   );
