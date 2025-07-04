@@ -9,6 +9,7 @@ import {
   Unauthenticated,
   AuthLoading,
 } from "convex/react";
+import { FullScreenLoader } from "./fullscreen-loader";
 
 const convex = new ConvexReactClient(process.env.NEXT_PUBLIC_CONVEX_URL!);
 
@@ -25,7 +26,7 @@ export function ConvexClientProvider({ children }: { children: ReactNode }) {
           </div>
         </Unauthenticated>
         <AuthLoading>
-          <p>Loading authentication...</p>
+          <FullScreenLoader label="Loading..." className="bg-white" />
         </AuthLoading>
       </ConvexProviderWithClerk>
     </ClerkProvider>
