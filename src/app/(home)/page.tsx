@@ -6,13 +6,13 @@ import { api } from "../../../convex/_generated/api";
 import { DocumentsTable } from "./documents-table";
 
 const Home = () => {
-  const { results, status, loadMore, isLoading } = usePaginatedQuery(
+  const { results, status, loadMore } = usePaginatedQuery(
     api.documents.get,
     {},
     { initialNumItems: 5 }
   );
 
-  if (isLoading || results === undefined) {
+  if (results === undefined) {
     return <p>Loading...</p>;
   }
   return (
