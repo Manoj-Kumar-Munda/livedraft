@@ -6,7 +6,7 @@ import React, { useRef, useState } from "react";
 import { useSearchParam } from "@/hooks/use-search-param";
 
 export const SearchInput = () => {
-  const [searchParam, setSearchParam] = useSearchParam("search");
+  const [searchParam, setSearchParam] = useSearchParam();
   const [value, setValue] = useState(searchParam || "");
 
   const inputRef = useRef<HTMLInputElement>(null);
