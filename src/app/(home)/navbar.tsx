@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { SearchInput } from "./search-input";
-import { UserButton } from "@clerk/nextjs";
+import { UserButton, OrganizationSwitcher } from "@clerk/nextjs";
 
 export default function Navbar() {
   return (
@@ -14,7 +14,16 @@ export default function Navbar() {
       </div>
 
       <SearchInput />
-      <UserButton />
+
+      <div className="flex gap-2 items-center pl-6">
+        <OrganizationSwitcher
+          afterCreateOrganizationUrl="/"
+          afterLeaveOrganizationUrl="/"
+          afterSelectOrganizationUrl="/"
+          afterSelectPersonalUrl="/"
+        />
+        <UserButton />
+      </div>
     </nav>
   );
 }
