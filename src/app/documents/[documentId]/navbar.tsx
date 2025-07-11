@@ -35,6 +35,7 @@ import {
 } from "lucide-react";
 import { BsFilePdf } from "react-icons/bs";
 import { useEditorStore } from "@/store/use-editor-store";
+import { Avatars } from "./avatars";
 
 export const Navbar = () => {
   const { editor } = useEditorStore();
@@ -262,6 +263,7 @@ export const Navbar = () => {
         </div>
       </div>
       <div className="flex gap-2 items-center pl-6">
+        <Avatars />
         <OrganizationSwitcher
           afterCreateOrganizationUrl="/"
           afterLeaveOrganizationUrl="/"

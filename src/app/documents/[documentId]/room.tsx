@@ -38,8 +38,6 @@ export function Room({ children }: { children: ReactNode }) {
       throttle={16}
       authEndpoint={"/api/liveblocks-auth"}
       resolveUsers={({ userIds }) => {
-        console.log({ userIds });
-
         return userIds.map((id) => users.find((user) => user.id === id));
       }}
       resolveMentionSuggestions={({ text }) => {
