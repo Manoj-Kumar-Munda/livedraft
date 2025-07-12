@@ -81,7 +81,7 @@ export const Navbar = () => {
     onDownload(blob, "document.txt"); //TODO: Use document name
   };
   return (
-    <nav className="flex items-center justify-between w-full ">
+    <nav className="flex items-center justify-between w-full relative z-50 bg-white ">
       <div className="flex gap-2 items-center">
         <Link href="/">
           <Image src="/logo.svg" alt="Logo" width={24} height={24} />
