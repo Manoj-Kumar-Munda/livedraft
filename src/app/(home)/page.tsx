@@ -18,8 +18,8 @@ const Home = () => {
     return <p>Loading...</p>;
   }
   return (
-    <div className="flex flex-col  min-h-screen ">
-      <div className="fixed top-0 left-0 right-0 z-10 h-16 bg-white p-4">
+    <div className="flex flex-col min-h-screen ">
+      <div className="fixed shrink-0 top-0 left-0 right-0 z-10 h-16 bg-white p-4 w-full">
         <Navbar />
       </div>
       <div className="mt-16">
