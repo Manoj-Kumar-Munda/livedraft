@@ -13,11 +13,13 @@ import { useRouter } from "next/navigation";
 import { api } from "../../../convex/_generated/api";
 import { useState } from "react";
 import { toast } from "sonner";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const TemplatesGallery = () => {
   const router = useRouter();
   const create = useMutation(api.documents.create);
   const [isCreating, setIsCreating] = useState(false);
+  const isMobile = useIsMobile();
 
   const onTemplateClick = (title: string, initialContent: string) => {
     setIsCreating(true);
@@ -32,15 +34,17 @@ const TemplatesGallery = () => {
       });
   };
   return (
-    <div className="bg-[#F1F3F4]">
-      <div className="max-w-screen-xl mx-auto px-16 py-6 flex flex-col gap-y-4">
-        <h3 className="font-medium">Start a new document</h3>
+    <div className="bg-[#F1F3F4] overflow-x-hidden md:overflow-auto">
+      <div className="max-w-screen-xl mx-auto px-6 md:px-16 py-6 flex flex-col gap-y-4">
+        <div className="flex justify-between items-center">
+          <h3 className="font-medium">Start a new document</h3>
+        </div>
         <Carousel>
-          <CarouselPrevious />
-          <CarouselContent className="-ml-4">
+          <CarouselPrevious className={"-left-4 z-10"} />
+          <CarouselContent className="md:-ml-4">
             {templates.map((template) => (
               <CarouselItem
-                className="basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 xl:basis-1/6 2xl:basis-[14.285714%] pl-4"
+                className="basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 xl:basis-1/6 2xl:basis-[14.285714%] md:pl-4"
                 key={template.id}
               >
                 <div
@@ -66,7 +70,7 @@ const TemplatesGallery = () => {
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselNext />
+          <CarouselNext className="-right-4" />
         </Carousel>
       </div>
     </div>
