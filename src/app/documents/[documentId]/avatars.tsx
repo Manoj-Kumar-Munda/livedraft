@@ -13,6 +13,7 @@ type TOtherUsers = [
       name: string;
       avatar: string;
       id: string;
+      color: string
     };
   },
 ][];

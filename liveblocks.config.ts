@@ -24,6 +24,7 @@ declare global {
         name: string;
         avatar: string;
         id: string;
+        color?: string
       };
     };
 
