@@ -19,7 +19,6 @@ import {
   BoldIcon,
   FileIcon,
   FileJsonIcon,
-  FilePenIcon,
   FilePlusIcon,
   FileTextIcon,
   GlobeIcon,
@@ -42,7 +41,6 @@ import { api } from "../../../../convex/_generated/api";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { RemoveDialog } from "@/components/remove-dialog";
-import { RenameDialog } from "@/components/rename-dialog";
 
 interface NavbarProps {
   data: Doc<"documents">;
@@ -151,11 +149,6 @@ export const Navbar = ({ data }: NavbarProps) => {
                   </MenubarItem>
 
                   <MenubarSeparator />
-
-                  <MenubarItem>
-                    <FilePenIcon className="size-4 mr-2" />
-                    Rename
-                  </MenubarItem>
                   <RemoveDialog documentId={data._id}>
                     <MenubarItem
                       onClick={(e) => e.stopPropagation()}

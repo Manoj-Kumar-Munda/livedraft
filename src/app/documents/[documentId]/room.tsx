@@ -25,6 +25,7 @@ export function Room({ children }: { children: ReactNode }) {
         const list = (await getUsers()) as User[];
         setUsers(list);
       } catch (error) {
+        console.error(error);
         toast.error("Failed to fetch users");
       }
     },

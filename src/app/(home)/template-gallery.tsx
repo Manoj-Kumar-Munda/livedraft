@@ -13,13 +13,11 @@ import { useRouter } from "next/navigation";
 import { api } from "../../../convex/_generated/api";
 import { useState } from "react";
 import { toast } from "sonner";
-import { useIsMobile } from "@/hooks/use-mobile";
 
 const TemplatesGallery = () => {
   const router = useRouter();
   const create = useMutation(api.documents.create);
   const [isCreating, setIsCreating] = useState(false);
-  const isMobile = useIsMobile();
 
   const onTemplateClick = (title: string, initialContent: string) => {
     setIsCreating(true);
