@@ -2,7 +2,6 @@
 
 import { Separator } from "@/components/ui/separator";
 import { shallow, useOthersMapped, useSelf } from "@liveblocks/react/suspense";
-import { Room } from "./room";
 
 const AVATAR_SIZE = 36;
 
@@ -18,11 +17,7 @@ type TOtherUsers = [
   },
 ][];
 export const Avatars = () => {
-  return (
-    <Room>
-      <AvatarStack />
-    </Room>
-  );
+  return <AvatarStack />;
 };
 
 const AvatarStack = () => {

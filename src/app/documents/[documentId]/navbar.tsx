@@ -52,7 +52,7 @@ export const Navbar = ({ data }: NavbarProps) => {
   const { editor } = useEditorStore();
   const mutation = useMutation(api.documents.create);
   const router = useRouter();
-
+  
   const onNewDocument = () => {
     mutation({
       title: "Untitled Document",
@@ -156,10 +156,15 @@ export const Navbar = ({ data }: NavbarProps) => {
                     <FilePenIcon className="size-4 mr-2" />
                     Rename
                   </MenubarItem>
-                  <MenubarItem>
-                    <TrashIcon className="size-4 mr-2" />
-                    Remove
-                  </MenubarItem>
+                  <RemoveDialog documentId={data._id}>
+                    <MenubarItem
+                      onClick={(e) => e.stopPropagation()}
+                      onSelect={(e) => e.preventDefault()}
+                    >
+                      <TrashIcon className="size-4 mr-2" />
+                      Remove
+                    </MenubarItem>
+                  </RemoveDialog>
                   <MenubarItem onClick={() => window.print()}>
                     <PrinterIcon className="size-4 mr-2" />
                     Print <MenubarShortcut>Ctrl + P</MenubarShortcut>

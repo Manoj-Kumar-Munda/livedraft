@@ -1,34 +1,31 @@
-"use client";
-import { useIsMobile } from "@/hooks/use-mobile";
-import { Editor } from "./editor";
-import { Navbar } from "./navbar";
-import { Room } from "./room";
-import Toolbar from "./toolbar";
+import { api } from "../../../../convex/_generated/api";
+import { Id } from "../../../../convex/_generated/dataModel";
+import { Document } from "./document";
+import { auth } from "@clerk/nextjs/server";
+import { preloadQuery } from "convex/nextjs";
+interface DocumentIdPageProps {
+  params: Promise<{ documentId: Id<"documents"> }>;
+}
 
-const Document = () => {
-  const isMobile = useIsMobile();
-  console.log({ isMobile });
+const DocumentIdPage = async ({ params }: DocumentIdPageProps) => {
+  const { documentId } = await params;
 
-  if (isMobile) {
-    return (
-      <div className="min-h-screen grid place-content-center">
-        Please open it on desktop for better experience
-      </div>
-    );
+  const { getToken } = await auth();
+  const token = (await getToken({ template: "convex" })) ?? undefined;
+
+  if (!token) {
+    throw new Error("Unauthorized");
   }
-  return (
-    <div className="min-h-screen bg-p[#F9FBFD]!">
-      <div className="flex flex-col px-4 pt-2 items-start gap-y-2 fixed top-0 left-0 right-0 z-10 bg-[]F9FBFD] print:hidden">
-        <Navbar />
-        <Toolbar />
-      </div>
-      <div className="pt-[114px] print:pt-0">
-        <Room>
-          <Editor />
-        </Room>
-      </div>
-    </div>
+
+  const preloadedDocument = await preloadQuery(
+    api.documents.getById,
+    {
+      id: documentId,
+    },
+    { token }
   );
+
+  return <Document preloadedDocument={preloadedDocument} />;
 };
 
-export default Document;
+export default DocumentIdPage;
