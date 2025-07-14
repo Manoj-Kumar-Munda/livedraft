@@ -36,9 +36,35 @@ import {
 import { BsFilePdf } from "react-icons/bs";
 import { useEditorStore } from "@/store/use-editor-store";
 import { Avatars } from "./avatars";
+import { Doc } from "../../../../convex/_generated/dataModel";
+import { useMutation } from "convex/react";
+import { api } from "../../../../convex/_generated/api";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+import { RemoveDialog } from "@/components/remove-dialog";
+import { RenameDialog } from "@/components/rename-dialog";
 
-export const Navbar = () => {
+interface NavbarProps {
+  data: Doc<"documents">;
+}
+
+export const Navbar = ({ data }: NavbarProps) => {
   const { editor } = useEditorStore();
+  const mutation = useMutation(api.documents.create);
+  const router = useRouter();
+
+  const onNewDocument = () => {
+    mutation({
+      title: "Untitled Document",
+      initialContent: "",
+    })
+      .catch(() => toast.error("Something went wrong"))
+      .then((id) => {
+        toast.success("Document created");
+        router.push(`/documents/${id}`);
+      });
+  };
+
   const insertTable = ({ rows, cols }: { rows: number; cols: number }) => {
     if (!editor) return;
     editor.chain().focus().insertTable({ rows, cols }).run();
@@ -58,7 +84,7 @@ export const Navbar = () => {
     const blob = new Blob([JSON.stringify(json)], {
       type: "application/json",
     });
-    onDownload(blob, "document.json"); //TODO: Use document name
+    onDownload(blob, `${data.title}.json`);
   };
 
   const onSaveHtml = () => {
@@ -68,7 +94,7 @@ export const Navbar = () => {
     const blob = new Blob([content], {
       type: "text/html",
     });
-    onDownload(blob, "document.html"); //TODO: Use document name
+    onDownload(blob, `${data.title}.html`);
   };
 
   const onSaveText = () => {
@@ -78,7 +104,7 @@ export const Navbar = () => {
     const blob = new Blob([content], {
       type: "text/plain",
     });
-    onDownload(blob, "document.txt"); //TODO: Use document name
+    onDownload(blob, `${data.title}.txt`);
   };
   return (
     <nav className="flex items-center justify-between w-full relative z-50 bg-white ">
@@ -87,7 +113,7 @@ export const Navbar = () => {
           <Image src="/logo.svg" alt="Logo" width={24} height={24} />
         </Link>
         <div className="flex flex-col">
-          <DocumentInput />
+          <DocumentInput title={data.title} id={data?._id} />
           <div className="flex">
             <Menubar className="border-none bg-transparent shadow-none h-auto p-0">
               <MenubarMenu>
@@ -119,7 +145,7 @@ export const Navbar = () => {
                       </MenubarItem>
                     </MenubarSubContent>
                   </MenubarSub>
-                  <MenubarItem>
+                  <MenubarItem onClick={onNewDocument}>
                     <FilePlusIcon className="size-4 mr-2" />
                     New Document
                   </MenubarItem>
