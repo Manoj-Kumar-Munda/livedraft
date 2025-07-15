@@ -1,3 +1,4 @@
+"use client";
 import { BsCloudCheck } from "react-icons/bs";
 import { Id } from "../../../../convex/_generated/dataModel";
 import { useRef, useState } from "react";

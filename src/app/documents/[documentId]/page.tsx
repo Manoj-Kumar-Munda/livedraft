@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { api } from "../../../../convex/_generated/api";
 import { Id } from "../../../../convex/_generated/dataModel";
 import { Document } from "./document";
