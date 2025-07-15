@@ -14,8 +14,6 @@ interface DocumentProps {
 export const Document = ({ preloadedDocument }: DocumentProps) => {
   // initial load is done with the preloadQuery in page.tsx server component after that to have real-time update in the client we will use usePreloadQuery hook to keep it sync with changes made after initial load.
   const document = usePreloadedQuery(preloadedDocument);
-  console.log({ document });
-
   const isMobile = useIsMobile();
 
   if (isMobile) {
