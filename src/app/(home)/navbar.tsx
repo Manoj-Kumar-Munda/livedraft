@@ -28,7 +28,7 @@ export default function Navbar() {
             <Link href="/">
               <Image src="/logo.svg" alt="Logo" width={32} height={32} />
             </Link>
-            <h3 className="hidden sm:block text-xl">Docs</h3>
+            <h3 className="hidden sm:block text-xl">LiveDraft</h3>
           </>
         )}
       </div>
